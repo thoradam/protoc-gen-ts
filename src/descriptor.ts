@@ -188,11 +188,18 @@ function createFromObject(
             [ts.factory.createIdentifier("item")],
           ),
         );
-        assignmentExpr = ts.factory.createCallExpression(
-          ts.factory.createPropertyAccessExpression(assignmentExpr, "map"),
-          undefined,
-          [arrowFunc],
-        );
+        assignmentExpr = ts.factory.createBinaryExpression(
+           ts.factory.createCallExpression(
+             ts.factory.createPropertyAccessChain(assignmentExpr, ts.factory.createToken(ts.SyntaxKind.QuestionDotToken), "map"),
+             undefined,
+             [arrowFunc],
+           ),
+           ts.factory.createToken(ts.SyntaxKind.QuestionQuestionToken),
+           ts.factory.createArrayLiteralExpression(
+             [],
+             false
+           )
+	);
       } else {
         assignmentExpr = ts.factory.createCallExpression(
           ts.factory.createPropertyAccessExpression(
